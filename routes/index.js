@@ -1,9 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const ListItem = require('../models/toDoList');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', async function(req, res) {
+
+  //query blogs 
+  try {
+    const listItems = await ListItem.find({});
+    res.json({listItems: listItems });
+  }catch(e){
+    console.log(e);
+  }
 });
 
 module.exports = router;
