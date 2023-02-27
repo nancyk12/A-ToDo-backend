@@ -6,10 +6,10 @@ const logger = require('morgan');
 
 require("dotenv").config({path: './config.env'});
 let { mongooseConnect } = require('./mongoose.js');
-mongooseConnect();
+//mongooseConnect();
 
 
-const todoListRouter = require('./routes/todoList');
+//const toDoListRouter = require('./routes/toDoList');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/todoList', todoListRouter);
+//app.use('/toDoList', toDoListRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

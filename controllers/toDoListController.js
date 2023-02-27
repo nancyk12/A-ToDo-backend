@@ -34,6 +34,26 @@ async function createTask(req, res, next) {
 }
 
 //Create Multiple Tasks
+async function createMultipleTasks(req,res){
+    try{
+  
+      const multipleListItems = req.body;
+      const savedData = await ListItem.create(multipleListItems); 
+      
+      //return the successful request to the user 
+      res.json({
+        success: true,
+        listItem: savedData
+      }); 
+    }catch(e){
+      console.log(typeof e);
+      console.log(e);
+      res.json({
+        error: e.toString(),
+      });
+    }
+  }
+
 
 //Read
 //Read All
@@ -49,23 +69,26 @@ try {
 
 //Update
 //Update One
-async function updateOneTask(req, res){
+async function updateOneTask(req,res){
     try {
-        const updates = {
-            status: req.body.status
-
-        } if(req.body.status === "complete") {
-            updates.dateCompleted = Date.now();
-            updates.completed = true;
-        }
-        
-        await listItem.updateOne({ name:req.params.name }, updates);
-        res.json({success: true, updates: res.body});
-
-        } catch(e){
-            console.log(e);
-        }
-}
+      const updates = {
+        status: req.body.status
+  
+      }
+      if(req.body.status === "complete"){
+        updates.dateCompleted = Date.now();
+        updates.completed = true;
+      }
+  
+      await ListItem.updateOne({ name:req.params.name }, updates);
+      res.json({success: true, updates: res.body});
+  
+    }catch(e){
+      console.log(e);
+  
+    }
+  }
+  
 
 //Delete
 //Delete One
@@ -112,7 +135,7 @@ async function deleteOneTask(req,res){
     createTask,
     createMultipleTasks,
     getAllTasks,
-    getOneTask,
+    //getOneTask,
     updateOneTask,
     deleteOneTask,
     deleteMultipleTasks
